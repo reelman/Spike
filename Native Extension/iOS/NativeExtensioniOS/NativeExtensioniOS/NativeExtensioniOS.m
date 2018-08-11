@@ -167,6 +167,11 @@ FREObject doG5BatteryInfoRequest(FREContext ctx, void* funcData, uint32_t argc, 
     return nil;
 }
 
+FREObject disconnectG5(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[0]) {
+    [G5Api disconnect];
+    return nil;
+}
+
 /*************************************
  ** SOUND AND SPEECH RELATED FUNCTIONS
  *************************************/
@@ -413,7 +418,7 @@ void NativeExtensionInitializer( void** extDataToSet, FREContextInitializer* ctx
 
 void NativeExtensionContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToTest, const FRENamedFunction** functionsToSet) {
     
-    *numFunctionsToTest = 48;
+    *numFunctionsToTest = 49;
     
     FRENamedFunction * func = (FRENamedFunction *) malloc(sizeof(FRENamedFunction) * *numFunctionsToTest);
 
@@ -636,6 +641,10 @@ void NativeExtensionContextInitializer(void* extData, const uint8_t* ctxType, FR
     func[47].functionData = NULL;
     func[47].function = &doG5BatteryInfoRequest;
    
+    func[48].name = (const uint8_t*) "disconnectG5";
+    func[48].functionData = NULL;
+    func[48].function = &disconnectG5;
+
     *functionsToSet = func;
 }
 
